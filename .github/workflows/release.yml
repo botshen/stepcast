@@ -48,7 +48,7 @@ jobs:
         with:
           tagName: v__VERSION__
           releaseName: "StepCast v__VERSION__"
-          releaseBody: "See CHANGELOG.md for release highlights."
-          releaseDraft: true
+          releaseBody: "Download native installers below: `.dmg` for macOS and `-setup.exe` / `.msi` for Windows. See CHANGELOG.md for highlights."
+          releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}

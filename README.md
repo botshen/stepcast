@@ -8,7 +8,7 @@
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-57534e.svg)](#installation--development)
 [![Built with Tauri v2](https://img.shields.io/badge/Tauri-v2%20%2B%20Rust-c5281c.svg)](https://v2.tauri.app)
 
-[English](./README.md) · [简体中文](./README.zh-CN.md) · [Contributing](./CONTRIBUTING.md) · [Security Model](./SECURITY.md)
+[Official Website & Live Playground](https://botshen.github.io/stepcast/) · [Download Installers (macOS & Windows)](https://github.com/botshen/stepcast/releases/latest) · [简体中文](./README.zh-CN.md) · [Security Model](./SECURITY.md)
 
 </div>
 

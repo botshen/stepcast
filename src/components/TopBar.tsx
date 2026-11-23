@@ -18,7 +18,9 @@ import { useWorkflowStore } from "../store/useWorkflowStore";
 import { isTauriRuntime } from "../lib/bridge";
 import { messages } from "../lib/i18n";
 
-export const TopBar: React.FC = () => {
+export const TopBar: React.FC<{ onBackToWebsite?: () => void }> = ({
+  onBackToWebsite,
+}) => {
   const {
     locale,
     session,
@@ -52,14 +54,30 @@ export const TopBar: React.FC = () => {
     <header className="h-12 shrink-0 bg-[#faf9f6] border-b border-[#e4e1d8] px-4 flex items-center justify-between gap-3 select-none">
       {/* Left: Brand, Session Switcher & Undo/Redo */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="w-6 h-6 rounded-md bg-[#18181b] flex items-center justify-center">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#e03e2f]" />
-          </span>
-          <span className="font-semibold text-sm tracking-tight text-[#161615]">
-            StepCast
-          </span>
-        </div>
+        {onBackToWebsite ? (
+          <button
+            type="button"
+            onClick={onBackToWebsite}
+            title={locale === "en" ? "Back to Official Website" : "返回官网首页"}
+            className="flex items-center gap-2 shrink-0 hover:opacity-80 cursor-pointer"
+          >
+            <span className="w-6 h-6 rounded-md bg-[#18181b] flex items-center justify-center">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#e03e2f]" />
+            </span>
+            <span className="font-semibold text-sm tracking-tight text-[#161615]">
+              StepCast
+            </span>
+          </button>
+        ) : (
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="w-6 h-6 rounded-md bg-[#18181b] flex items-center justify-center">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#e03e2f]" />
+            </span>
+            <span className="font-semibold text-sm tracking-tight text-[#161615]">
+              StepCast
+            </span>
+          </div>
+        )}
 
         <span className="text-[#cbc7bc]">/</span>
 

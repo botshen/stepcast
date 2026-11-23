@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useWorkflowStore } from "./store/useWorkflowStore";
 import { TopBar } from "./components/TopBar";
 import { StepTimeline } from "./components/StepTimeline";
@@ -7,14 +7,34 @@ import { InspectorPanel } from "./components/InspectorPanel";
 import { SopPreviewView } from "./components/SopPreviewView";
 import { SkillPreviewView } from "./components/SkillPreviewView";
 import { RecordingHudPill } from "./components/RecordingHudPill";
+import { LandingPage } from "./components/LandingPage";
+import { isTauriRuntime } from "./lib/bridge";
 
-const isHudWindow =
-  typeof window !== "undefined" &&
-  new URLSearchParams(window.location.search).get("window") === "hud";
+const searchParams =
+  typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search)
+    : new URLSearchParams();
+
+const isHudWindow = searchParams.get("window") === "hud";
+
+function shouldStartInStudio(): boolean {
+  if (isTauriRuntime()) return true;
+  return searchParams.get("app") === "studio";
+}
 
 export const App: React.FC = () => {
-  const { activeTab, toastMessage, initialize, undo, redo, stepRelative } =
-    useWorkflowStore();
+  const {
+    locale,
+    activeTab,
+    toastMessage,
+    initialize,
+    setLocale,
+    undo,
+    redo,
+    stepRelative,
+  } = useWorkflowStore();
+
+  const [inStudio, setInStudio] = useState<boolean>(shouldStartInStudio);
 
   useEffect(() => {
     if (isHudWindow) return;
@@ -22,13 +42,17 @@ export const App: React.FC = () => {
   }, [initialize]);
 
   useEffect(() => {
-    if (isHudWindow) return;
+    if (isHudWindow || !inStudio) return;
     const onKeyDown = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement | null)?.tagName?.toLowerCase();
       const isEditingText =
         tag === "input" || tag === "textarea" || tag === "select";
 
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z" && !isEditingText) {
+      if (
+        (e.metaKey || e.ctrlKey) &&
+        e.key.toLowerCase() === "z" &&
+        !isEditingText
+      ) {
         e.preventDefault();
         if (e.shiftKey) {
           redo();
@@ -51,15 +75,41 @@ export const App: React.FC = () => {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [undo, redo, stepRelative]);
+  }, [inStudio, undo, redo, stepRelative]);
 
   if (isHudWindow) {
     return <RecordingHudPill />;
   }
 
+  if (!inStudio && !isTauriRuntime()) {
+    return (
+      <LandingPage
+        locale={locale}
+        onChangeLocale={(loc) => void setLocale(loc)}
+        onOpenWebStudio={() => {
+          const url = new URL(window.location.href);
+          url.searchParams.set("app", "studio");
+          window.history.pushState({}, "", url.toString());
+          setInStudio(true);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="h-screen w-screen flex flex-col bg-[#f4f3ef] text-[#161615] overflow-hidden">
-      <TopBar />
+      <TopBar
+        onBackToWebsite={
+          !isTauriRuntime()
+            ? () => {
+                const url = new URL(window.location.href);
+                url.searchParams.delete("app");
+                window.history.pushState({}, "", url.toString());
+                setInStudio(false);
+              }
+            : undefined
+        }
+      />
 
       <div className="flex-1 min-h-0 flex">
         {activeTab === "studio" && (

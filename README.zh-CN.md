@@ -8,7 +8,7 @@
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-57534e.svg)](#快速开始)
 [![Built with Tauri v2](https://img.shields.io/badge/Tauri-v2%20%2B%20Rust-c5281c.svg)](https://v2.tauri.app)
 
-[English](./README.md) · [简体中文](./README.zh-CN.md) · [贡献指南](./CONTRIBUTING.md) · [安全与隐私架构](./SECURITY.md)
+[产品官网与在线试玩](https://botshen.github.io/stepcast/) · [下载安装包 (macOS .dmg / Windows .exe)](https://github.com/botshen/stepcast/releases/latest) · [English](./README.md) · [安全架构](./SECURITY.md)
 
 </div>
 
