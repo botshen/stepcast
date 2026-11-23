@@ -1,0 +1,11 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/bin/
+src-tauri/native/stepcast-darwin-capture
+.DS_Store
+*.log
+.env
+.env.*
+shots/

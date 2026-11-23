@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  --bg-app: #f4f3ef;
+  --bg-surface: #ffffff;
+  --bg-subtle: #faf9f6;
+  --bg-elevated: #ffffff;
+  --border-subtle: #e6e4dd;
+  --border-strong: #d1cec4;
+  --text-primary: #161615;
+  --text-secondary: #575551;
+  --text-muted: #87847e;
+  --accent-record: #d93829;
+  --accent-record-soft: #fef2f1;
+  --accent-ink: #18181b;
+  --accent-emerald: #15803d;
+  --accent-amber: #b45309;
+  --radius-panel: 10px;
+  --radius-control: 7px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.font-mono-code {
+  font-family: "SF Mono", "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #6b6660;
+  opacity: 1;
+}
+
+@keyframes record-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.88);
+  }
+}
+
+.animate-record-dot {
+  animation: record-pulse 1.4s ease-in-out infinite;
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(22, 22, 21, 0.14);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(22, 22, 21, 0.28);
+}

@@ -1,0 +1,28 @@
+name: Bug Report
+description: Report a capture, DPI scaling, or export issue in StepCast
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - macOS (Apple Silicon)
+        - macOS (Intel)
+        - Windows 11
+        - Windows 10
+    validations:
+      required: true
+  - type: input
+    id: target_app
+    attributes:
+      label: Target Application Being Recorded
+      placeholder: "e.g., Ghostty, Cursor, Chrome, Feishu"
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: "1. Click Record\n2. Click target button in ...\n3. Expected vs actual result"
+    validations:
+      required: true
